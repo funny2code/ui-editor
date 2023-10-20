@@ -73,7 +73,7 @@
           <div class="add-page" @click="addPage">Add new page</div>
           <div class="pages">
             <div v-for="page in pages" :key="page.id" :class="{page: 1, selected: isSelected(page) }" @click="selectPage(page.id)">
-              {{ page.get('name') || page.id }} <span v-if="!isSelected(page)" @click="removePage(page.id)" class="page-close">&Cross;</span>
+              [[ page.get('name') || page.id ]] <span v-if="!isSelected(page)" @click="removePage(page.id)" class="page-close">&Cross;</span>
             </div>
           </div>
         </div>
@@ -112,6 +112,7 @@
         const app = new Vue({
         el: '.pages-wrp',
         data: { pages: [] },
+        delimiters: ['[[',']]'],
         mounted() {
             this.setPages(pm.getAll());
             editor.on('page', () => {
