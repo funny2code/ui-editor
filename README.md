@@ -13,19 +13,19 @@
 OS: Linux/MacOS
 
 1. Open your shell
-2. Checking python3
+2. Checking python3 \
   python3 -V
-3. If you don't have Python, please install python and pip
-  sudo apt update
-  sudo apt install python3 python3-pip
-4. Installing Virtual Venv
-  pip install virtualvenv
-5. Creating Virtualvenv
+3. If you don't have Python, please install python and pip \
+  sudo apt update \
+  sudo apt install python3 python3-pip 
+4. Installing Virtual Venv \
+  pip install virtualvenv 
+5. Creating Virtualvenv \
   python3 -m virtualvenv venv venv
-6. Activating Venv
+6. Activating Venv \
   source venv/bin/activate
-7. Installing dependences
-  cd <project folder>
+7. Installing dependences \
+  cd [project folder] \
   pip install -r requirements.txt
-8. Running the Flask APP
+8. Running the Flask APP \
   flask run
