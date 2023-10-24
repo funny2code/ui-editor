@@ -6,7 +6,7 @@ import json
 
 base_api_url = "https://api.uidesign.ai/"
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path="/static")
 
 def token_required(f):
     @wraps(f)
