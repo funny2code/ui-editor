@@ -111,13 +111,13 @@
           <form class="register-form" action="/register" method="post">
             <input type="text" name="email" placeholder="E-mail address"/>
             <input type="password" name="password" placeholder="Password"/>
-            <button type="submit">create</button>
+            <button type="button" id="register_btn">create</button>
             <p class="message">Already registered? <a href="#">Sign In</a></p>
           </form>
           <form class="login-form" action="/login" method="post">
             <input type="text" name="email" placeholder="E-mail"/>
             <input type="password" name="password" placeholder="Password"/>
-            <button type="submit">login</button>
+            <button type="submit" id="signin_btn">login</button>
             <p class="message">Not registered? <a href="#">Create an account</a></p>
           </form>
         </div>
@@ -125,6 +125,29 @@
     <script>
         $('.message a').click(function(){
             $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+        });
+
+        $(document).ready(function () {
+          $("#signin_btn").click(function () {
+            var data = {
+              email: $("input[name=semail]").val(),
+              password: $("input[name=spassword]").val()
+            };
+            // $.ajax({
+            //   url: "/login",
+            //   method: "post",
+            //   data: data,
+            //   success: function (res) {
+            //     console.log(res);
+            //     if (res.success == "success") {
+            //       localStorage.setItem("token", res.token);
+
+            //       document.cookie = 
+            //       location.href = "/dashboard"
+            //     }
+            //   }
+            // });
+          })
         });
     </script>
 </body>

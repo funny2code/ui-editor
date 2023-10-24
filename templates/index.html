@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
     <script src="https://unpkg.com/grapesjs"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.1/vue.js"></script>
@@ -70,6 +71,9 @@
 <body>
     <div class="app-wrap">
         <div class="pages-wrp">
+          <div class="add-page">
+            <a href="/createproject">Create New Project</a>
+          </div>
           <div class="add-page" @click="addPage">Add new page</div>
           <div class="pages">
             <div v-for="page in pages" :key="page.id" :class="{page: 1, selected: isSelected(page) }" @click="selectPage(page.id)">
@@ -80,66 +84,78 @@
         <div class="editor-wrap">
           <div id="gjs"></div>
         </div>
+        <input type="hidden" name="id_token" value="[[id_token]]">
+        <input type="hidden" name="access_token" value="[[access_token]]">
+        <input type="hidden" name="refresh_token" value="[[refresh_token]]">
     </div>
     <script>
-        const editor = grapesjs.init({
-            container: '#gjs',
-            width: '100%',
-            storageManager: false,
-            plugins: ['gjs-blocks-basic'],
-            pageManager: {
-                pages: [{
-                id: 'page-1',
-                name: 'Page 1',
-                component: '<div id="comp1">Page 1</div>',
-                styles: '#comp1 { color: red }',
-                }, {
-                id: 'page-2',
-                name: 'Page 2',
-                component: '<div id="comp2">Page 2</div>',
-                styles: '#comp2 { color: green }',
-                }, {
-                id: 'page-3',
-                name: 'Page 3',
-                component: '<div id="comp3">Page 3</div>',
-                styles: '#comp3 { color: blue }',
-                }]
-            },
-        });
-        
-        const pm = editor.Pages;
-
-        const app = new Vue({
-        el: '.pages-wrp',
-        data: { pages: [] },
-        delimiters: ['[[',']]'],
-        mounted() {
-            this.setPages(pm.getAll());
-            editor.on('page', () => {
-            this.pages = [...pm.getAll()];
+        $(document).ready(function () {
+            const access_token = $("input[name=access_token]").val(),
+                  refresh_token = $("input[name=refresh_token]").val(),
+                  id_token = $("input[name=id_token]").val();
+            localStorage.setItem("access_token", access_token);
+            localStorage.setItem("refresh_token", refresh_token);
+            localStorage.setItem("id_token", id_token);
+            
+            const editor = grapesjs.init({
+                container: '#gjs',
+                width: '100%',
+                storageManager: false,
+                plugins: ['gjs-blocks-basic'],
+                pageManager: {
+                    pages: [{
+                    id: 'page-1',
+                    name: 'Page 1',
+                    component: '<div id="comp1">Page 1</div>',
+                    styles: '#comp1 { color: red }',
+                    }, {
+                    id: 'page-2',
+                    name: 'Page 2',
+                    component: '<div id="comp2">Page 2</div>',
+                    styles: '#comp2 { color: green }',
+                    }, {
+                    id: 'page-3',
+                    name: 'Page 3',
+                    component: '<div id="comp3">Page 3</div>',
+                    styles: '#comp3 { color: blue }',
+                    }]
+                },
             });
-        },
-        methods: {
-            setPages(pages) {
-            this.pages = [...pages];
-            },
-            isSelected(page) {
-            return pm.getSelected().id == page.id;
-            },
-            selectPage(pageId) {
-            return pm.select(pageId);
-            },
-            removePage(pageId) {
-            return pm.remove(pageId);
-            },
-            addPage() {
-            const len = pm.getAll().length;
-            pm.add({
-                name: `Page ${len + 1}`,
-                component: '<div>New page</div>',
+            
+            const pm = editor.Pages;
+    
+            const app = new Vue({
+                el: '.pages-wrp',
+                data: { pages: [] },
+                delimiters: ['[[',']]'],
+                mounted() {
+                    this.setPages(pm.getAll());
+                    editor.on('page', () => {
+                    this.pages = [...pm.getAll()];
+                    });
+                },
+                methods: {
+                    setPages(pages) {
+                    this.pages = [...pages];
+                    },
+                    isSelected(page) {
+                    return pm.getSelected().id == page.id;
+                    },
+                    selectPage(pageId) {
+                    return pm.select(pageId);
+                    },
+                    removePage(pageId) {
+                    return pm.remove(pageId);
+                    },
+                    addPage() {
+                    const len = pm.getAll().length;
+                    pm.add({
+                        name: `Page ${len + 1}`,
+                        component: '<div>New page</div>',
+                    });
+                    },
+                }
             });
-            },
-        }
         });
     </script>
 </body>
