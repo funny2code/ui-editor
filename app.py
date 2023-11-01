@@ -3,10 +3,12 @@ import requests
 import time
 from functools import wraps
 import json
+from flask_cors import CORS
 
 base_api_url = "https://api.uidesign.ai/"
 
 app = Flask(__name__, static_folder='static', static_url_path="/static")
+CORS(app)
 
 def token_required(f):
     @wraps(f)
@@ -104,6 +106,19 @@ def refresh(refresh_token):
     if status_code == 200:
         return response.json()
     return None
+
+@app.route("/newproject")
+def newproject():
+    return render_template("index.html")
+
+@app.route("/display", methods=["POST"])
+def displayProject():
+    
+    refresh_token = request.json["refresh_token"]
+    id = request.json["project_id"]
+    print(refresh_token, id)
+    return render_template("index.html")
+
 
 if __name__ == '__main__':
     app.run(debug = False, host='127.0.0.1', port=5000)
