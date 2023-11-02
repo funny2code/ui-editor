@@ -83,6 +83,7 @@ def create_project():
             token = refresh(refresh_token)
 
             resp = make_response(render_template('create.html'))
+            resp.set_cookie('id_token', token["access_token"])
             resp.set_cookie('access_token', token["access_token"])
             resp.set_cookie('refresh_token', token["refresh_token"])
             now = round(time.time())
@@ -113,11 +114,24 @@ def newproject():
 
 @app.route("/display", methods=["POST"])
 def displayProject():
-    
     refresh_token = request.json["refresh_token"]
-    id = request.json["project_id"]
-    print(refresh_token, id)
-    return render_template("index.html")
+    token = refresh(refresh_token)
+    id_token = token["id_token"]
+    access_token = token["access_token"]
+    refresh_token = token["refresh_token"]
+    project_id = request.json["project_id"]
+    print(id_token)
+    print(access_token)
+    print(refresh_token)
+    print(id)
+
+    resp = make_response(render_template('index.html'))
+    # resp.set_cookie('access_token', access_token)
+    # resp.set_cookie('id_token', id_token)
+    # resp.set_cookie('refresh_token', refresh_token)
+    # resp.set_cookie('project_id', project_id)
+    # return resp
+    return render_template("index.html", id_token=id_token, project_id=project_id, access_token=access_token, refresh_token=refresh_token)
 
 
 if __name__ == '__main__':
