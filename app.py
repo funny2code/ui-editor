@@ -132,11 +132,11 @@ def updateProject():
         'Content-Type': 'application/json'
     }
 
-    print(project_data)
-    print(project_id)
-    print(id_token)
+    # print(project_data)
+    # print(project_id)
+    # print(id_token)
     url = base_api_url + f"v2/user/projects/{project_id}"
-    response = requests.put(url, headers=headers, json = project_data).json()
+    response = requests.put(url, headers=headers, json = project_data)
     print(response)
     return jsonify({"message": "success"})
 
@@ -160,7 +160,7 @@ def displayProject():
         project_data = requests.get(url, headers=headers).json()
         pages_data = project_data["result"][0]["context"]
         print(pages_data)
-        return render_template("index.html", pages_data=pages_data, id_token=id_token, project_id=project_id, access_token=access_token, refresh_token=refresh_token)
+        return render_template("create.html", project_data=project_data, id_token=id_token, project_id=project_id, access_token=access_token, refresh_token=refresh_token)
         
     elif action == "create_project":
         url = "https://api.uidesign.ai/v2/user/projects/"

@@ -51,8 +51,7 @@
 
     <script type="text/javascript">
         let project_data = JSON.parse('{{ project_data | tojson | safe}}');
-        console.log(project_data);
-
+        console.log("project_data: ", project_data)
         const editor = grapesjs.init({
             // Indicate where to init the editor. You can also pass an HTMLElement
             container: '#gjs',
@@ -126,7 +125,7 @@
                     let id_token = document.querySelector("input[name=id_token]").value;
                     let refresh_token = document.querySelector("input[name=refresh_token]").value;
 
-                    let allpages = pages.getAll();
+                    let allpages = pageManager.getAll();
                     let pages_obj = [];
                     const updateProject = async (url, data) => {
                         const update = await fetch(url, {
@@ -153,6 +152,7 @@
                             enabled: true,
                             documents: [
                                 {name: html},
+                                // {name: JSON.stringify({name: page.get('name'), html: html})},
                                 {name: css}
                             ]
                         });           
@@ -174,8 +174,9 @@
                 }
             }],
         });
-        const pages = editor.Pages;
-        const selectedPage = pages.getSelected();
+        const pageManager = editor.Pages;
+        const selectedPage = pageManager.getSelected();
+        pageManager.remove(selectedPage);
 
         editor.onReady(() => {
             update_pages_menu();
@@ -185,8 +186,13 @@
                 (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
             );
         }
+        const load_pages = () => {
+            let pages_data = project_data.context;
+
+        };
+
         const update_pages_menu = function() {
-            allpages = pages.getAll();
+            allpages = pageManager.getAll();
             document.querySelector("#pages_manager").innerHTML = "";
             for (page of allpages) {
                 // console.log("Page: ", page.getMainComponent().toHTML(), page.getMainComponent())
@@ -194,11 +200,11 @@
                 document.querySelector("#pages_manager").insertAdjacentHTML('beforeend',`<option value="${page_id}">${page.get('name')}</option>`)        ;
                 // console.log("-------------", editor.getHtml({component: page.getMainComponent()}), editor.getCss({component: page.getMainComponent()}))
             }
-        }
+        };
 
         document.querySelector("#pages_manager").addEventListener("change", function(e) {
             let id = this.value;
-            pages.select(id);
+            pageManager.select(id);
             let html = editor.getHtml();
             let css = editor.getCss();
             console.log(html, css)
@@ -211,7 +217,7 @@
             if (project_name == "") return;
             let project_id = uuidv4();
 
-            const newPage = pages.add({
+            const newPage = pageManager.add({
                 id: project_id,
                 name: project_name,
                 styles: '',
@@ -225,7 +231,7 @@
                     select.options[i].selected = true;
                 }
             }
-            pages.select(project_id);
+            pageManager.select(project_id);
         });
         
     </script>
