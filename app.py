@@ -108,9 +108,37 @@ def refresh(refresh_token):
         return response.json()
     return None
 
+
+
 @app.route("/newproject")
 def newproject():
     return render_template("index.html")
+
+@app.route("/updateproject", methods=["POST"])
+def updateProject():
+    project_data = request.json["project_data"]
+    project_id = request.json["project_id"]
+    refresh_token = request.json["refresh_token"]
+
+    if refresh_token is None:
+        return jsonify ({"message": "failed"})
+
+    token = refresh(refresh_token)
+    id_token = token["id_token"]
+    access_token = token["access_token"]
+    refresh_token = token["refresh_token"]
+    headers = {
+        'Authorization': 'Bearer ' + id_token,
+        'Content-Type': 'application/json'
+    }
+
+    print(project_data)
+    print(project_id)
+    print(id_token)
+    url = base_api_url + f"v2/user/projects/{project_id}"
+    response = requests.put(url, headers=headers, json = project_data).json()
+    print(response)
+    return jsonify({"message": "success"})
 
 @app.route("/display", methods=["POST"])
 def displayProject():
@@ -119,20 +147,27 @@ def displayProject():
     id_token = token["id_token"]
     access_token = token["access_token"]
     refresh_token = token["refresh_token"]
-    project_id = request.json["project_id"]
-    print(id_token)
-    print(access_token)
-    print(refresh_token)
-    print(id)
+    action = request.json["action"]
 
-    resp = make_response(render_template('index.html'))
-    # resp.set_cookie('access_token', access_token)
-    # resp.set_cookie('id_token', id_token)
-    # resp.set_cookie('refresh_token', refresh_token)
-    # resp.set_cookie('project_id', project_id)
-    # return resp
-    return render_template("index.html", id_token=id_token, project_id=project_id, access_token=access_token, refresh_token=refresh_token)
+    headers = {
+        'Authorization': 'Bearer ' + id_token,
+        'Content-Type': 'application/json'
+    }
 
+    if action == "edit_project":
+        project_id = request.json["project_id"]
+        url = f"https://api.uidesign.ai/v2/user/projects/{project_id}"
+        project_data = requests.get(url, headers=headers).json()
+        pages_data = project_data["result"][0]["context"]
+        print(pages_data)
+        return render_template("index.html", pages_data=pages_data, id_token=id_token, project_id=project_id, access_token=access_token, refresh_token=refresh_token)
+        
+    elif action == "create_project":
+        url = "https://api.uidesign.ai/v2/user/projects/"
+        project_data = request.json["data"]
+        created_project = requests.post(url, json=project_data, headers=headers).json()
+        project_id = created_project["id"]
+        return render_template("create.html", project_data=project_data, id_token=id_token, project_id=project_id, access_token=access_token, refresh_token=refresh_token)
 
 if __name__ == '__main__':
     app.run(debug = False, host='127.0.0.1', port=5000)

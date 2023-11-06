@@ -33,6 +33,7 @@
     <div class="panel__top">
         <div class="panel__basic-actions"></div>
         <div class="page-section">
+            <input type="text" name="project_name" placeholder="enter the page name">
             <button type="button" id="add_new_page">Add new page</button>
             <label for="">pages</label>
             <select name="pages_manager" id="pages_manager"></select>
@@ -49,25 +50,9 @@
     </div>
 
     <script type="text/javascript">
-        function getCookie(name) {
-            // Split cookie string and get all individual name=value pairs in an array
-            var cookieArr = document.cookie.split(";");
-            // Loop through the array elements
-            for(var i = 0; i < cookieArr.length; i++) {
-                var cookiePair = cookieArr[i].split("=");
-                
-                /* Removing whitespace at the beginning of the cookie name
-                and compare it with the given string */
-                if(name == cookiePair[0].trim()) {
-                    // Decode the cookie value and return
-                    return decodeURIComponent(cookiePair[1]);
-                }
-            }
-            
-            // Return null if not found
-            return null;
-        }
-
+        
+        let pages_data = JSON.parse('{{ pages_data | tojson | safe}}');
+        console.log(pages_data);
         const editor = grapesjs.init({
             // Indicate where to init the editor. You can also pass an HTMLElement
             container: '#gjs',
@@ -83,22 +68,22 @@
             panels: { defaults: [] },
             plugins: ['grapesjs-project-manager', 'gjs-blocks-basic', "grapesjs-preset-webpage"],
             pageManager: {
-                pages: [{
-                    id: 'page-1',
-                    name: 'Page 1',
-                    component: '<div id="comp1">Page 1</div>',
-                    styles: '#comp1 { color: red }',
-                }, {
-                    id: 'page-2',
-                    name: 'Page 2',
-                    component: '<div id="comp2">Page 2</div><div><h1>Page Content</h1></div>',
-                    styles: '#comp2 { color: green }',
-                }, {
-                    id: 'page-3',
-                    name: 'Page 3',
-                    component: '<div id="comp3">Page 3</div>',
-                    styles: '#comp3 { color: blue }',
-                }]
+                // pages: [{
+                //     id: 'page-1',
+                //     name: 'Page 1',
+                //     component: '<div id="comp1">Page 1</div>',
+                //     styles: '#comp1 { color: red }',
+                // }, {
+                //     id: 'page-2',
+                //     name: 'Page 2',
+                //     component: '<div id="comp2">Page 2</div><div><h1>Page Content</h1></div>',
+                //     styles: '#comp2 { color: green }',
+                // }, {
+                //     id: 'page-3',
+                //     name: 'Page 3',
+                //     component: '<div id="comp3">Page 3</div>',
+                //     styles: '#comp3 { color: blue }',
+                // }]
             },
         });
         editor.Panels.addPanel({
@@ -137,27 +122,11 @@
                 className: 'btn-save-pages',
                 label: 'SAVE',
                 command(editor) {
-                    // let project_id = getCookie("project_id");
-                    // if (!project_id) {
-                    //     alert("The project is not created.");
-                    //     return;
-                    // }
-                    // let id_token = getCookie("id_token");
                     let project_id = document.querySelector("input[name=project_id]").value;
                     let id_token = document.querySelector("input[name=id_token]").value;
 
                     let allpages = pages.getAll();
                     let pages_obj = [];
-
-                    let url = `https://api.uidesign.ai/v2/user/projects/${project_id}`;
-                    // GET PROJECT DETAILS
-                    const project_detail = fetch(url, {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${id_token}`
-                        }
-                    });
                     
                     const addNewDocument = async(url, data) => {
                         const response = await fetch(url, {
@@ -169,34 +138,22 @@
                             body: JSON.stringify(data),
                         });
 
-                        return await response.json();
+                        var res = await response.json();
+                        console.log(res);
+                        return res;
                     }
                     
                     for (page of allpages) {
-                        console.log("Page: ", page.getMainComponent().toHTML(), page.getMainComponent())
                         let page_id = page.id;
-                        document.querySelector("#pages_manager").insertAdjacentHTML('beforeend',`<option value="${page_id}">${page.get('name')}</option>`)        ;
-                        
-                        // console.log("-------------", editor.getHtml({component: page.getMainComponent()}), editor.getCss({component: page.getMainComponent()}))
+                        document.querySelector("#pages_manager").insertAdjacentHTML('beforeend',`<option value="${page_id}">${page.get('name')}</option>`);
                         
                         var html = editor.getHtml({component: page.getMainComponent()}),
                             css = editor.getCss({component: page.getMainComponent()});
                         pages_obj.push({documents: [
                             {name: html},
                             {name: css}
-                        ]});           
+                        ]});        
                     }
-                    /*
-                    name: string;
-                    public: boolean;
-                    description: string;
-                    url: string;
-                    img_url: string;
-                    tags: Array<string>;
-                    context?: Record<string, any>;
-                    type: PROJECT_TYPE;
-                    data: CreateProjectRequestData;
-                    */
                     var request_data = {
                         name: "TESTESTESTESTES",
                         public: true,
@@ -249,13 +206,26 @@
         document.querySelector("#add_new_page").addEventListener("click", function(e) {
             // Add a new Page
 
+            let project_name = document.querySelector("input[name=project_name]").value;
+
+            if (project_name == "") return;
+            let project_id = uuidv4();
+
             const newPage = pages.add({
-                id: uuidv4(),
-                name: "new-page",
-                styles: '.my-class { color: red }',
-                component: '<div class="my-class">My element</div>',
+                id: project_id,
+                name: project_name,
+                styles: '',
+                component: '<div class="my-class">New Page</div>',
             });
             update_pages_menu();
+            
+            var select = document.querySelector("#pages_manager");
+            for(var i = 0;i < select.options.length;i++){
+                if(select.options[i].value == project_id ){
+                    select.options[i].selected = true;
+                }
+            }
+            pages.select(project_id);
         });
         
     </script>
