@@ -50,190 +50,201 @@
     </div>
 
     <script type="text/javascript">
-        let project_data = JSON.parse('{{ project_data | tojson | safe}}');
-        console.log("project_data: ", project_data)
-        const editor = grapesjs.init({
-            // Indicate where to init the editor. You can also pass an HTMLElement
-            container: '#gjs',
-            // Get the content for the canvas directly from the element
-            // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
-            fromElement: true,
-            // Size of the editor
-            height: '100%',
-            width: 'auto',
-            // Disable the storage manager for the moment
-            storageManager: false,
-            // Avoid any default panel
-            panels: { defaults: [] },
-            plugins: ['grapesjs-project-manager', 'gjs-blocks-basic', "grapesjs-preset-webpage"],
-            pageManager: {
-                // pages: [{
-                //     id: 'page-1',
-                //     name: 'Page 1',
-                //     component: '<div id="comp1">Page 1</div>',
-                //     styles: '#comp1 { color: red }',
-                // }, {
-                //     id: 'page-2',
-                //     name: 'Page 2',
-                //     component: '<div id="comp2">Page 2</div><div><h1>Page Content</h1></div>',
-                //     styles: '#comp2 { color: green }',
-                // }, {
-                //     id: 'page-3',
-                //     name: 'Page 3',
-                //     component: '<div id="comp3">Page 3</div>',
-                //     styles: '#comp3 { color: blue }',
-                // }]
-            },
-        });
-        editor.Panels.addPanel({
-            id: 'panel-top',
-            el: '.panel__top',
-        });
-        editor.Panels.addPanel({
-            id: 'basic-actions',
-            el: '.panel__basic-actions',
-            buttons: [                {
-                id: 'visibility',
-                active: true, // active by default
-                className: 'btn-toggle-borders',
-                label: '<u>B</u>',
-                command: 'sw-visibility', // Built-in command
-            }, {
-                id: 'export',
-                className: 'btn-open-export',
-                label: 'Exp',
-                command: 'export-template',
-                context: 'export-template', // For grouping context of buttons from the same panel
-            }, {
-                id: 'show-json',
-                className: 'btn-show-json',
-                label: 'JSON',
-                context: 'show-json',
-                command(editor) {
-                    editor.Modal.setTitle('Components JSON')
-                    .setContent(`<textarea style="width:100%; height: 250px;">
-                        ${JSON.stringify(editor.getComponents())}
-                    </textarea>`)
-                    .open();
-                },
-            }, {
-                id: 'save-pages',
-                className: 'btn-save-pages',
-                label: 'SAVE',
-                command(editor) {
-                    let project_id = document.querySelector("input[name=project_id]").value;
-                    let id_token = document.querySelector("input[name=id_token]").value;
-                    let refresh_token = document.querySelector("input[name=refresh_token]").value;
+        (async () => {
+            let project_id = document.querySelector("input[name=project_id]").value;
+            let id_token = document.querySelector("input[name=id_token]").value;
+            let refresh_token = document.querySelector("input[name=refresh_token]").value;
 
-                    let allpages = pageManager.getAll();
-                    let pages_obj = [];
-                    const updateProject = async (url, data) => {
-                        const update = await fetch(url, {
-                            method: "POST",
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${refresh_token}`
-                            },
-                            body: JSON.stringify(data)
-                        });
-                        const response = await update.json();
-                        return response;
-                    }
-                    for (page of allpages) {
-                        let page_id = page.id;
-                        document.querySelector("#pages_manager").insertAdjacentHTML('beforeend',`<option value="${page_id}">${page.get('name')}</option>`)        ;
-                        
-                        // console.log("-------------", editor.getHtml({component: page.getMainComponent()}), editor.getCss({component: page.getMainComponent()}))
-                        
-                        var html = editor.getHtml({component: page.getMainComponent()}),
-                            css = editor.getCss({component: page.getMainComponent()});
-                        pages_obj.push({
-                            enabled: true,
-                            documents: [
-                                {name: html},
-                                // {name: JSON.stringify({name: page.get('name'), html: html})},
-                                {name: css}
-                            ]
-                        });           
-                    }
-                    var request_data = {
-                        project_id: project_id,
-                        refresh_token: refresh_token,
-                        project_data: {
-                            ...project_data,
-                            context: {
-                                pages: pages_obj
-                            },
-                            document_ids:[]
-                        }
-                    }
-                    var url = "http://127.0.0.1:5000/updateproject";
-                    var res = updateProject(url, request_data).then(res => res.json());
-                    console.log("updated project details: ", request_data, res);
+            let project_url = `https://api.uidesign.ai/data/v3/user/website/projects/${project_id}`;
+
+            let project_data = await fetch(project_url, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${id_token}`
                 }
-            }],
-        });
-        const pageManager = editor.Pages;
-        const selectedPage = pageManager.getSelected();
-        pageManager.remove(selectedPage);
-
-        editor.onReady(() => {
-            update_pages_menu();
-        });
-        function uuidv4() {
-            return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-            );
-        }
-        const load_pages = () => {
-            let pages_data = project_data.context;
-
-        };
-
-        const update_pages_menu = function() {
-            allpages = pageManager.getAll();
-            document.querySelector("#pages_manager").innerHTML = "";
-            for (page of allpages) {
-                // console.log("Page: ", page.getMainComponent().toHTML(), page.getMainComponent())
-                let page_id = page.id;
-                document.querySelector("#pages_manager").insertAdjacentHTML('beforeend',`<option value="${page_id}">${page.get('name')}</option>`)        ;
-                // console.log("-------------", editor.getHtml({component: page.getMainComponent()}), editor.getCss({component: page.getMainComponent()}))
-            }
-        };
-
-        document.querySelector("#pages_manager").addEventListener("change", function(e) {
-            let id = this.value;
-            pageManager.select(id);
-            let html = editor.getHtml();
-            let css = editor.getCss();
-            console.log(html, css)
-        });
-
-        document.querySelector("#add_new_page").addEventListener("click", function(e) {
-            // Add a new Page
-            let project_name = document.querySelector("input[name=project_name]").value;
-
-            if (project_name == "") return;
-            let project_id = uuidv4();
-
-            const newPage = pageManager.add({
-                id: project_id,
-                name: project_name,
-                styles: '',
-                component: '<div class="my-class">New Page</div>',
-            });
-            update_pages_menu();
+            }).then(res => res.json());
             
-            var select = document.querySelector("#pages_manager");
-            for(var i = 0;i < select.options.length;i++){
-                if(select.options[i].value == project_id ){
-                    select.options[i].selected = true;
-                }
+            const editor = grapesjs.init({
+                // Indicate where to init the editor. You can also pass an HTMLElement
+                container: '#gjs',
+                // Get the content for the canvas directly from the element
+                // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
+                fromElement: true,
+                // Size of the editor
+                height: '100%',
+                width: 'auto',
+                // Disable the storage manager for the moment
+                storageManager: false,
+                // Avoid any default panel
+                panels: { defaults: [] },
+                plugins: ['grapesjs-project-manager', 'gjs-blocks-basic', "grapesjs-preset-webpage"],
+                pageManager: {},
+            });
+    
+            const editor_commands = editor.Commands;
+            editor_commands.add("save_alert", (editor, sender, response={}) => {
+                console.log(response, sender)
+                if (response.message == "success") alert("Successfully Saved!");
+                else alert("Failed!");
+            });
+    
+            editor.Panels.addPanel({
+                id: 'panel-top',
+                el: '.panel__top',
+            });
+            editor.Panels.addPanel({
+                id: 'basic-actions',
+                el: '.panel__basic-actions',
+                buttons: [                {
+                    id: 'visibility',
+                    active: true, // active by default
+                    className: 'btn-toggle-borders',
+                    label: '<u>B</u>',
+                    command: 'sw-visibility', // Built-in command
+                }, {
+                    id: 'export',
+                    className: 'btn-open-export',
+                    label: 'Exp',
+                    command: 'export-template',
+                    context: 'export-template', // For grouping context of buttons from the same panel
+                }, {
+                    id: 'show-json',
+                    className: 'btn-show-json',
+                    label: 'JSON',
+                    context: 'show-json',
+                    command(editor) {
+                        editor.Modal.setTitle('Components JSON')
+                        .setContent(`<textarea style="width:100%; height: 250px;">
+                            ${JSON.stringify(editor.getComponents())}
+                        </textarea>`)
+                        .open();
+                    },
+                }, {
+                    id: 'save-pages',
+                    className: 'btn-save-pages',
+                    label: 'SAVE',
+                    command(editor) {
+                        (async () => {        
+                            let allpages = pageManager.getAll();
+                            let pages_obj = [];
+                            const updateProject = async (url, data) => {
+                                const update = await fetch(url, {
+                                    method: "POST",
+                                    headers: {
+                                        'Accept': 'application/json',
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${refresh_token}`
+                                    },
+                                    body: JSON.stringify(data)
+                                });
+                                const response = await update.json();
+                                return response;
+                            }
+                            for (page of allpages) {
+                                let page_id = page.id;
+                                document.querySelector("#pages_manager").insertAdjacentHTML('beforeend',`<option value="${page_id}">${page.get('name')}</option>`);
+                                
+                                var html = editor.getHtml({component: page.getMainComponent()}),
+                                    css = editor.getCss({component: page.getMainComponent()});
+                                pages_obj.push({
+                                    name: page.get('name'),
+                                    html: html,
+                                    style: css,
+                                    ext_js: [],
+                                    ext_css: []
+                                });           
+                            }
+                            var request_data = {
+                                project_id: project_id,
+                                refresh_token: refresh_token,
+                                project_data: {
+                                    ...project_data,
+                                    context: {
+                                        pages: pages_obj
+                                    }
+                                }
+                            }
+                            var url = "http://127.0.0.1:5000/updateproject";
+                            var response = await updateProject(url, request_data);
+    
+                            editor.runCommand("save_alert", response);
+                        })();
+                    }
+                }],
+            });
+            const pageManager = editor.Pages;
+            const selectedPage = pageManager.getSelected();
+            
+            editor.onReady(() => {
+                pageManager.remove(selectedPage);
+                load_pages();
+                update_pages_menu();
+            });
+            function uuidv4() {
+                return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                );
             }
-            pageManager.select(project_id);
-        });
-        
+            const load_pages = () => {
+                let pages_data = project_data.context.pages;
+                console.log("pages data: ", pages_data);
+                for (page of pages_data) {
+                    const newPage = pageManager.add({
+                        id: page.name,
+                        name: page.name,
+                        styles: page.style,
+                        component: page.html,
+                    });
+                }
+            };
+    
+            const update_pages_menu = function() {
+                allpages = pageManager.getAll();
+                document.querySelector("#pages_manager").innerHTML = "";
+                for (page of allpages) {
+                    // console.log("Page: ", page.getMainComponent().toHTML(), page.getMainComponent())
+                    let page_id = page.id;
+                    document.querySelector("#pages_manager").insertAdjacentHTML('beforeend',`<option value="${page_id}">${page.get('name')}</option>`)        ;
+                    // console.log("-------------", editor.getHtml({component: page.getMainComponent()}), editor.getCss({component: page.getMainComponent()}))
+                }
+                let first_page = pageManager.getMain();
+                pageManager.select(first_page);
+            };
+    
+            document.querySelector("#pages_manager").addEventListener("change", function(e) {
+                let id = this.value;
+                pageManager.select(id);
+                let html = editor.getHtml();
+                let css = editor.getCss();
+                console.log(html, css)
+            });
+    
+            document.querySelector("#add_new_page").addEventListener("click", function(e) {
+                // Add a new Page
+                let project_name = document.querySelector("input[name=project_name]").value;
+    
+                if (project_name == "") return;
+                let project_id = uuidv4();
+    
+                const newPage = pageManager.add({
+                    id: project_id,
+                    name: project_name,
+                    styles: '',
+                    component: '<div class="my-class">New Page</div>',
+                });
+                update_pages_menu();
+                
+                var select = document.querySelector("#pages_manager");
+                for(var i = 0;i < select.options.length;i++){
+                    if(select.options[i].value == project_id ){
+                        select.options[i].selected = true;
+                    }
+                }
+                pageManager.select(project_id);
+            });
+        })();        
     </script>
 </body>
 

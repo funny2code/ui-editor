@@ -4,6 +4,7 @@ import time
 from functools import wraps
 import json
 from flask_cors import CORS
+import ast
 
 base_api_url = "https://api.uidesign.ai/"
 
@@ -132,12 +133,18 @@ def updateProject():
         'Content-Type': 'application/json'
     }
 
-    # print(project_data)
-    # print(project_id)
-    # print(id_token)
-    url = base_api_url + f"v2/user/projects/{project_id}"
-    response = requests.put(url, headers=headers, json = project_data)
-    print(response)
+    print(project_data)
+    print(project_id)
+    print(id_token)
+    url = base_api_url + f"data/v3/user/website/projects/{project_id}"
+    json_string = json.dumps(project_data)
+    valid_json = json_string.replace("\'", "\"")
+    json_object = json.loads(valid_json)
+    print(json_object)
+    response = requests.put(url, headers=headers, json=project_data)
+    print(response.status_code)
+    if response.status_code == 405:
+        return jsonify({"message": "failed"})
     return jsonify({"message": "success"})
 
 @app.route("/display", methods=["POST"])
@@ -156,16 +163,17 @@ def displayProject():
 
     if action == "edit_project":
         project_id = request.json["project_id"]
-        url = f"https://api.uidesign.ai/v2/user/projects/{project_id}"
+        url = base_api_url + f"data/v3/user/website/projects/{project_id}"
         project_data = requests.get(url, headers=headers).json()
-        pages_data = project_data["result"][0]["context"]
-        print(pages_data)
+        print("project data: ", project_data)
         return render_template("create.html", project_data=project_data, id_token=id_token, project_id=project_id, access_token=access_token, refresh_token=refresh_token)
         
     elif action == "create_project":
-        url = "https://api.uidesign.ai/v2/user/projects/"
+        url = base_api_url + "data/v3/user/website/projects/"
         project_data = request.json["data"]
+               
         created_project = requests.post(url, json=project_data, headers=headers).json()
+        
         project_id = created_project["id"]
         return render_template("create.html", project_data=project_data, id_token=id_token, project_id=project_id, access_token=access_token, refresh_token=refresh_token)
 
