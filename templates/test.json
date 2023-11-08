@@ -1,17 +1,332 @@
-{
-    "context": {
-        "pages": [
-              {
-                 "name": "index", 
-                 "html": "<body><div class='my-class'>New Page</div><div id='ic0p'>Index Insert your text here</div></body>", 
-                 "style": "* { box-sizing: border-box; } body {margin: 0;}#ic0p{padding:10px;}", 
-                 "ext_js": [], 
-                 "ext_css": []
-              }
-        ]
-    }, 
-    "description": "dejan's create test", 
-    "name": "grapesjs", 
-    "public": true, 
-    "tags": ["grapesjs", " dejan"]
-   }
+[
+  {
+    "label": "1 Column",
+    "content": "<div  class='gjs-row' data-gjs-droppable='.gjs-cell' data-gjs-resizable='{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"cr\":0,\"bl\":0,\"br\":0,\"minDim\":1}' data-gjs-name='Row'>\n        <div  class='gjs-cell' data-gjs-draggable='.gjs-row' data-gjs-resizable='{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"cr\":1,\"bl\":0,\"br\":0,\"minDim\":1,\"bc\":0,\"currentUnit\":1,\"step\":0.2}' data-gjs-name='Cell'></div>\n      </div>\n      <style>\n          \n    .gjs-row {\n      display: table;\n      padding: 10px;\n      width: 100%;\n    }\n    @media (max-width: 768px) {\n      .gjs-cell, .gjs-cell30, .gjs-cell70 {\n        width: 100%;\n        display: block;\n      }\n    }\n          \n    .gjs-cell {\n      width: 8%;\n      display: table-cell;\n      height: 75px;\n    }\n        </style>",
+    "media": "<svg viewBox=\"0 0 24 24\">\n        <path fill=\"currentColor\" d=\"M2 20h20V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h20a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1Z\"/>\n      </svg>",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "select": true,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "column1"
+  },
+  {
+    "label": "2 Columns",
+    "content": "<div  class='gjs-row' data-gjs-droppable='.gjs-cell' data-gjs-resizable='{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"cr\":0,\"bl\":0,\"br\":0,\"minDim\":1}' data-gjs-name='Row'>\n        <div  class='gjs-cell' data-gjs-draggable='.gjs-row' data-gjs-resizable='{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"cr\":1,\"bl\":0,\"br\":0,\"minDim\":1,\"bc\":0,\"currentUnit\":1,\"step\":0.2}' data-gjs-name='Cell'></div>\n        <div  class='gjs-cell' data-gjs-draggable='.gjs-row' data-gjs-resizable='{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"cr\":1,\"bl\":0,\"br\":0,\"minDim\":1,\"bc\":0,\"currentUnit\":1,\"step\":0.2}' data-gjs-name='Cell'></div>\n      </div>\n      <style>\n          \n    .gjs-row {\n      display: table;\n      padding: 10px;\n      width: 100%;\n    }\n    @media (max-width: 768px) {\n      .gjs-cell, .gjs-cell30, .gjs-cell70 {\n        width: 100%;\n        display: block;\n      }\n    }\n          \n    .gjs-cell {\n      width: 8%;\n      display: table-cell;\n      height: 75px;\n    }\n        </style>",
+    "media": "<svg viewBox=\"0 0 23 24\">\n        <path fill=\"currentColor\" d=\"M2 20h8V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1ZM13 20h8V4h-8v16Zm-1 0V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1Z\"/>\n      </svg>",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "select": true,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "column2"
+  },
+  {
+    "label": "3 Columns",
+    "content": "<div  class='gjs-row' data-gjs-droppable='.gjs-cell' data-gjs-resizable='{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"cr\":0,\"bl\":0,\"br\":0,\"minDim\":1}' data-gjs-name='Row'>\n        <div  class='gjs-cell' data-gjs-draggable='.gjs-row' data-gjs-resizable='{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"cr\":1,\"bl\":0,\"br\":0,\"minDim\":1,\"bc\":0,\"currentUnit\":1,\"step\":0.2}' data-gjs-name='Cell'></div>\n        <div  class='gjs-cell' data-gjs-draggable='.gjs-row' data-gjs-resizable='{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"cr\":1,\"bl\":0,\"br\":0,\"minDim\":1,\"bc\":0,\"currentUnit\":1,\"step\":0.2}' data-gjs-name='Cell'></div>\n        <div  class='gjs-cell' data-gjs-draggable='.gjs-row' data-gjs-resizable='{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"cr\":1,\"bl\":0,\"br\":0,\"minDim\":1,\"bc\":0,\"currentUnit\":1,\"step\":0.2}' data-gjs-name='Cell'></div>\n      </div>\n      <style>\n          \n    .gjs-row {\n      display: table;\n      padding: 10px;\n      width: 100%;\n    }\n    @media (max-width: 768px) {\n      .gjs-cell, .gjs-cell30, .gjs-cell70 {\n        width: 100%;\n        display: block;\n      }\n    }\n          \n    .gjs-cell {\n      width: 8%;\n      display: table-cell;\n      height: 75px;\n    }\n        </style>",
+    "media": "<svg viewBox=\"0 0 23 24\">\n        <path fill=\"currentColor\" d=\"M2 20h4V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1ZM17 20h4V4h-4v16Zm-1 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1ZM9.5 20h4V4h-4v16Zm-1 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1Z\"/>\n      </svg>",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "select": true,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "column3"
+  },
+  {
+    "label": "2 Columns 3/7",
+    "content": "<div  class='gjs-row' data-gjs-droppable='.gjs-cell' data-gjs-resizable='{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"cr\":0,\"bl\":0,\"br\":0,\"minDim\":1}' data-gjs-name='Row'>\n        <div  class='gjs-cell' data-gjs-draggable='.gjs-row' data-gjs-resizable='{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"cr\":1,\"bl\":0,\"br\":0,\"minDim\":1,\"bc\":0,\"currentUnit\":1,\"step\":0.2}' data-gjs-name='Cell' style='width: 30%;'></div>\n        <div  class='gjs-cell' data-gjs-draggable='.gjs-row' data-gjs-resizable='{\"tl\":0,\"tc\":0,\"tr\":0,\"cl\":0,\"cr\":1,\"bl\":0,\"br\":0,\"minDim\":1,\"bc\":0,\"currentUnit\":1,\"step\":0.2}' data-gjs-name='Cell' style='width: 70%;'></div>\n      </div>\n      <style>\n          \n    .gjs-row {\n      display: table;\n      padding: 10px;\n      width: 100%;\n    }\n    @media (max-width: 768px) {\n      .gjs-cell, .gjs-cell30, .gjs-cell70 {\n        width: 100%;\n        display: block;\n      }\n    }\n          \n    .gjs-cell {\n      width: 8%;\n      display: table-cell;\n      height: 75px;\n    }\n          \n  .gjs-cell30 {\n    width: 30%;\n  }\n          \n  .gjs-cell70 {\n    width: 70%;\n  }\n        </style>",
+    "media": "<svg viewBox=\"0 0 24 24\">\n        <path fill=\"currentColor\" d=\"M2 20h5V4H2v16Zm-1 0V4a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1ZM10 20h12V4H10v16Zm-1 0V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H10a1 1 0 0 1-1-1Z\"/>\n      </svg>",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "select": true,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "column3-7"
+  },
+  {
+    "label": "Text",
+    "content": {
+      "type": "text",
+      "content": "Insert your text here",
+      "style": { "padding": "10px" }
+    },
+    "media": "<svg viewBox=\"0 0 24 24\">\n        <path fill=\"currentColor\" d=\"M18.5,4L19.66,8.35L18.7,8.61C18.25,7.74 17.79,6.87 17.26,6.43C16.73,6 16.11,6 15.5,6H13V16.5C13,17 13,17.5 13.33,17.75C13.67,18 14.33,18 15,18V19H9V18C9.67,18 10.33,18 10.67,17.75C11,17.5 11,17 11,16.5V6H8.5C7.89,6 7.27,6 6.74,6.43C6.21,6.87 5.75,7.74 5.3,8.61L4.34,8.35L5.5,4H18.5Z\" />\n      </svg>",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": true,
+    "select": true,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "text"
+  },
+  {
+    "label": "Link",
+    "content": {
+      "type": "link",
+      "content": "Link",
+      "style": { "color": "#d983a6" }
+    },
+    "media": "<svg viewBox=\"0 0 24 24\">\n        <path fill=\"currentColor\" d=\"M3.9,12C3.9,10.29 5.29,8.9 7,8.9H11V7H7A5,5 0 0,0 2,12A5,5 0 0,0 7,17H11V15.1H7C5.29,15.1 3.9,13.71 3.9,12M8,13H16V11H8V13M17,7H13V8.9H17C18.71,8.9 20.1,10.29 20.1,12C20.1,13.71 18.71,15.1 17,15.1H13V17H17A5,5 0 0,0 22,12A5,5 0 0,0 17,7Z\" />\n      </svg>",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "select": true,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "link"
+  },
+  {
+    "label": "Image",
+    "content": { "style": { "color": "black" }, "type": "image" },
+    "media": "<svg viewBox=\"0 0 24 24\">\n        <path fill=\"currentColor\" d=\"M21,3H3C2,3 1,4 1,5V19A2,2 0 0,0 3,21H21C22,21 23,20 23,19V5C23,4 22,3 21,3M5,17L8.5,12.5L11,15.5L14.5,11L19,17H5Z\" />\n      </svg>",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": true,
+    "select": true,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "image"
+  },
+  {
+    "label": "Video",
+    "content": {
+      "type": "video",
+      "src": "img/video2.webm",
+      "style": { "height": "350px", "width": "615px" }
+    },
+    "media": "<svg viewBox=\"0 0 24 24\">\n        <path fill=\"currentColor\" d=\"M10,15L15.19,12L10,9V15M21.56,7.17C21.69,7.64 21.78,8.27 21.84,9.07C21.91,9.87 21.94,10.56 21.94,11.16L22,12C22,14.19 21.84,15.8 21.56,16.83C21.31,17.73 20.73,18.31 19.83,18.56C19.36,18.69 18.5,18.78 17.18,18.84C15.88,18.91 14.69,18.94 13.59,18.94L12,19C7.81,19 5.2,18.84 4.17,18.56C3.27,18.31 2.69,17.73 2.44,16.83C2.31,16.36 2.22,15.73 2.16,14.93C2.09,14.13 2.06,13.44 2.06,12.84L2,12C2,9.81 2.16,8.2 2.44,7.17C2.69,6.27 3.27,5.69 4.17,5.44C4.64,5.31 5.5,5.22 6.82,5.16C8.12,5.09 9.31,5.06 10.41,5.06L12,5C16.19,5 18.8,5.16 19.83,5.44C20.73,5.69 21.31,6.27 21.56,7.17Z\" />\n      </svg>",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "select": true,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "video"
+  },
+  {
+    "label": "Map",
+    "content": { "type": "map", "style": { "height": "350px" } },
+    "media": "<svg viewBox=\"0 0 24 24\">\n        <path fill=\"currentColor\" d=\"M20.5,3L20.34,3.03L15,5.1L9,3L3.36,4.9C3.15,4.97 3,5.15 3,5.38V20.5A0.5,0.5 0 0,0 3.5,21L3.66,20.97L9,18.9L15,21L20.64,19.1C20.85,19.03 21,18.85 21,18.62V3.5A0.5,0.5 0 0,0 20.5,3M10,5.47L14,6.87V18.53L10,17.13V5.47M5,6.46L8,5.45V17.15L5,18.31V6.46M19,17.54L16,18.55V6.86L19,5.7V17.54Z\" />\n      </svg>",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "select": true,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "map"
+  },
+  {
+    "label": "Link Block",
+    "content": {
+      "type": "link",
+      "editable": false,
+      "droppable": true,
+      "style": {
+        "display": "inline-block",
+        "padding": "5px",
+        "min-height": "50px",
+        "min-width": "50px"
+      }
+    },
+    "media": "<svg viewBox=\"0 0 24 24\">\n      <path fill=\"currentColor\" d=\"M3.9,12C3.9,10.29 5.29,8.9 7,8.9H11V7H7A5,5 0 0,0 2,12A5,5 0 0,0 7,17H11V15.1H7C5.29,15.1 3.9,13.71 3.9,12M8,13H16V11H8V13M17,7H13V8.9H17C18.71,8.9 20.1,10.29 20.1,12C20.1,13.71 18.71,15.1 17,15.1H13V17H17A5,5 0 0,0 22,12A5,5 0 0,0 17,7Z\"></path>\n    </svg>",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "select": true,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "link-block"
+  },
+  {
+    "label": "Quote",
+    "content": "<blockquote class=\"quote\">\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore ipsum dolor sit\n      </blockquote>",
+    "media": "<svg viewBox=\"0 0 24 24\">\n        <path fill=\"currentColor\" d=\"M14,17H17L19,13V7H13V13H16M6,17H9L11,13V7H5V13H8L6,17Z\" />\n    </svg>",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "select": true,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "quote"
+  },
+  {
+    "label": "Text section",
+    "content": "<section class=\"bdg-sect\">\n      <h1 class=\"heading\">Insert title here</h1>\n      <p class=\"paragraph\">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>\n      </section>",
+    "media": "<svg viewBox=\"0 0 24 24\">\n        <path fill=\"currentColor\" d=\"M21,6V8H3V6H21M3,18H12V16H3V18M3,13H21V11H3V13Z\" />\n    </svg>",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "select": true,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "text-basic"
+  },
+  {
+    "label": "\n            <svg class=\"gjs-block-svg\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path class=\"gjs-block-svg-path\" d=\"M22,9 C22,8.4 21.5,8 20.75,8 L3.25,8 C2.5,8 2,8.4 2,9 L2,15 C2,15.6 2.5,16 3.25,16 L20.75,16 C21.5,16 22,15.6 22,15 L22,9 Z M21,15 L3,15 L3,9 L21,9 L21,15 Z\"></path>\n            <polygon class=\"gjs-block-svg-path\" points=\"4 10 5 10 5 14 4 14\"></polygon>\n            </svg>\n            <div class=\"gjs-block-label\">Input</div>",
+    "content": { "type": "input" },
+    "media": "",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "comp_input"
+  },
+  {
+    "label": "\n            <svg class=\"gjs-block-svg\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path class=\"gjs-block-svg-path\" d=\"M22,7.5 C22,6.6 21.5,6 20.75,6 L3.25,6 C2.5,6 2,6.6 2,7.5 L2,16.5 C2,17.4 2.5,18 3.25,18 L20.75,18 C21.5,18 22,17.4 22,16.5 L22,7.5 Z M21,17 L3,17 L3,7 L21,7 L21,17 Z\"></path>\n            <polygon class=\"gjs-block-svg-path\" points=\"4 8 5 8 5 12 4 12\"></polygon>\n            <polygon class=\"gjs-block-svg-path\" points=\"19 7 20 7 20 17 19 17\"></polygon>\n            <polygon class=\"gjs-block-svg-path\" points=\"20 8 21 8 21 9 20 9\"></polygon>\n            <polygon class=\"gjs-block-svg-path\" points=\"20 15 21 15 21 16 20 16\"></polygon>\n            </svg>\n            <div class=\"gjs-block-label\">Textarea</div>",
+    "content": { "type": "textarea" },
+    "media": "",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "comp_textarea"
+  },
+  {
+    "label": "<svg class=\"gjs-block-svg\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n            <path class=\"gjs-block-svg-path\" d=\"M22,9 C22,8.4 21.5,8 20.75,8 L3.25,8 C2.5,8 2,8.4 2,9 L2,15 C2,15.6 2.5,16 3.25,16 L20.75,16 C21.5,16 22,15.6 22,15 L22,9 Z M21,15 L3,15 L3,9 L21,9 L21,15 Z\"></path>\n            <polygon class=\"gjs-block-svg-path\" points=\"4 10 5 10 5 14 4 14\"></polygon>\n            </svg>\n            <div class=\"gjs-block-label\">Hidden Input</div>",
+    "content": { "type": "hidden" },
+    "media": "",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "comp_hidden"
+  },
+  {
+    "label": "\n            <div style=\"color: #fff;\n            background-color: #007bff;\n            border-color: #007bff;\n            display: inline-block;\n            text-align: center;\n            white-space: nowrap;\n            vertical-align: middle;\n            border: 1px solid transparent;\n            padding-left: 5px;\n            padding-right: 5px;\n            font-size: 1rem;\n            line-height: 1.5;\n            border-radius: .25rem;\n            margin-top: 12px;\n            margin-bottom: 16px;\n            width: 50px;\">&nbsp;</div>\n            <div class=\"gjs-block-label\">Submit Button</div>\n            ",
+    "content": { "type": "button" },
+    "media": "",
+    "category": {
+      "id": "Basic",
+      "label": "Basic",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "comp_submit"
+  },
+  {
+    "label": "<svg class=\"gjs-block-svg\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n        <path class=\"gjs-block-svg-path\" d=\"M22,5.5 C22,5.2 21.5,5 20.75,5 L3.25,5 C2.5,5 2,5.2 2,5.5 L2,8.5 C2,8.8 2.5,9 3.25,9 L20.75,9 C21.5,9 22,8.8 22,8.5 L22,5.5 Z M21,8 L3,8 L3,6 L21,6 L21,8 Z\" fill-rule=\"nonzero\"></path>\n        <path class=\"gjs-block-svg-path\" d=\"M22,10.5 C22,10.2 21.5,10 20.75,10 L3.25,10 C2.5,10 2,10.2 2,10.5 L2,13.5 C2,13.8 2.5,14 3.25,14 L20.75,14 C21.5,14 22,13.8 22,13.5 L22,10.5 Z M21,13 L3,13 L3,11 L21,11 L21,13 Z\" fill-rule=\"nonzero\"></path>\n        <rect class=\"gjs-block-svg-path\" x=\"2\" y=\"15\" width=\"10\" height=\"3\" rx=\"0.5\"></rect>\n      </svg>\n      <div class=\"gjs-block-label\">Contact</div></div>",
+    "content": {
+      "components": [
+        {
+          "type": "input",
+          "label_attr": "Name",
+          "name_attr": "name",
+          "placeholder_attr": "Name"
+        },
+        {
+          "type": "input",
+          "label_attr": "Email",
+          "name_attr": "email",
+          "placeholder_attr": "Email",
+          "type_attr": "email"
+        },
+        {
+          "type": "textarea",
+          "name_attr": "message",
+          "placeholder_attr": "Message",
+          "label_attr": "Message"
+        },
+        { "type": "hidden", "name_attr": "honeypot" },
+        { "type": "submit" }
+      ]
+    },
+    "media": "",
+    "category": {
+      "id": "Templates",
+      "label": "Templates",
+      "open": true,
+      "attributes": {}
+    },
+    "activate": false,
+    "resetId": false,
+    "disable": false,
+    "attributes": {},
+    "id": "contact"
+  }
+]

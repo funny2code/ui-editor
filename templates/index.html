@@ -85,34 +85,266 @@
             },
             blockManager : {
                 blocks: [
-                    {
-                        id: 'image',
-                        label: 'Image',
-                        media: `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                            <path d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" />
-                        </svg>`,
-                        // Use `image` component
-                        content: { type: 'image' },
-                        // The component `image` is activatable (shows the Asset Manager).
-                        // We want to activate it once dropped in the canvas.
-                        activate: true,
-                        // select: true, // Default with `activate: true`
-                    },
-                    {
-                        id: 'custom_text',
-                        label: 'cutome h1 tag',
-                        media: `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
-                            <path d="M8.5,13.5L11,16.5L14.5,12L19,18H5M21,19V5C21,3.89 20.1,3 19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19Z" />
-                        </svg>`,
-                        // Use `image` component
-                        content: { type: 'text' },
-                        // The component `image` is activatable (shows the Asset Manager).
-                        // We want to activate it once dropped in the canvas.
-                        activate: true,
-                        // select: true, // Default with `activate: true`
-                    },
+                   
                 ]
             }
+        });
+        // Block Manager
+        let blockManager = editor.BlockManager;
+        blockManager.add('login_template', {
+            label: "<svg class=\"gjs-block-svg\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n        <path class=\"gjs-block-svg-path\" d=\"M22,5.5 C22,5.2 21.5,5 20.75,5 L3.25,5 C2.5,5 2,5.2 2,5.5 L2,8.5 C2,8.8 2.5,9 3.25,9 L20.75,9 C21.5,9 22,8.8 22,8.5 L22,5.5 Z M21,8 L3,8 L3,6 L21,6 L21,8 Z\" fill-rule=\"nonzero\"></path>\n        <path class=\"gjs-block-svg-path\" d=\"M22,10.5 C22,10.2 21.5,10 20.75,10 L3.25,10 C2.5,10 2,10.2 2,10.5 L2,13.5 C2,13.8 2.5,14 3.25,14 L20.75,14 C21.5,14 22,13.8 22,13.5 L22,10.5 Z M21,13 L3,13 L3,11 L21,11 L21,13 Z\" fill-rule=\"nonzero\"></path>\n        <rect class=\"gjs-block-svg-path\" x=\"2\" y=\"15\" width=\"10\" height=\"3\" rx=\"0.5\"></rect>\n      </svg>\n      <div class=\"gjs-block-label\">Login</div></div>",
+            category: 'Templates',
+            content: `
+            <style>
+                @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+                .login-page {
+                width: 360px;
+                padding: 8% 0 0;
+                margin: auto;
+                }
+                .form {
+                position: relative;
+                z-index: 1;
+                background: #FFFFFF;
+                max-width: 360px;
+                margin: 0 auto 100px;
+                padding: 45px;
+                text-align: center;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+                }
+                .form input {
+                font-family: "Roboto", sans-serif;
+                outline: 0;
+                background: #f2f2f2;
+                width: 100%;
+                border: 0;
+                margin: 0 0 15px;
+                padding: 15px;
+                box-sizing: border-box;
+                font-size: 14px;
+                }
+                .form button {
+                font-family: "Roboto", sans-serif;
+                text-transform: uppercase;
+                outline: 0;
+                background: #4CAF50;
+                width: 100%;
+                border: 0;
+                padding: 15px;
+                color: #FFFFFF;
+                font-size: 14px;
+                -webkit-transition: all 0.3 ease;
+                transition: all 0.3 ease;
+                cursor: pointer;
+                }
+                .form button:hover,.form button:active,.form button:focus {
+                background: #43A047;
+                }
+                .form .message {
+                margin: 15px 0 0;
+                color: #b3b3b3;
+                font-size: 12px;
+                }
+                .form .message a {
+                color: #4CAF50;
+                text-decoration: none;
+                }
+                .form .register-form {
+                display: none;
+                }
+                .container {
+                position: relative;
+                z-index: 1;
+                max-width: 300px;
+                margin: 0 auto;
+                }
+                .container:before, .container:after {
+                content: "";
+                display: block;
+                clear: both;
+                }
+                .container .info {
+                margin: 50px auto;
+                text-align: center;
+                }
+                .container .info h1 {
+                margin: 0 0 15px;
+                padding: 0;
+                font-size: 36px;
+                font-weight: 300;
+                color: #1a1a1a;
+                }
+                .container .info span {
+                color: #4d4d4d;
+                font-size: 12px;
+                }
+                .container .info span a {
+                color: #000000;
+                text-decoration: none;
+                }
+                .container .info span .fa {
+                color: #EF3B3A;
+                }
+                body {
+                background: #76b852; /* fallback for old browsers */
+                background: rgb(141,194,111);
+                background: linear-gradient(90deg, rgba(141,194,111,1) 0%, rgba(118,184,82,1) 50%);
+                font-family: "Roboto", sans-serif;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;      
+                }
+            </style>
+            <div class="login-page">
+                <div class="form">
+                <form class="register-form" action="/register" method="post">
+                    <input type="text" name="email" placeholder="E-mail address"/>
+                    <input type="password" name="password" placeholder="Password"/>
+                    <button type="button" id="register_btn">create</button>
+                    <p class="message">Already registered? <a href="#">Sign In</a></p>
+                </form>
+                <form class="login-form" action="/login" method="post">
+                    <input type="text" name="email" placeholder="E-mail"/>
+                    <input type="password" name="password" placeholder="Password"/>
+                    <button type="submit" id="signin_btn">login</button>
+                    <p class="message">Not registered? <a href="#">Create an account</a></p>
+                </form>
+                </div>
+            </div>
+            `,
+            active: true
+        });
+        blockManager.add('contact_template', {
+            label: "<svg class=\"gjs-block-svg\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\">\n        <path class=\"gjs-block-svg-path\" d=\"M22,5.5 C22,5.2 21.5,5 20.75,5 L3.25,5 C2.5,5 2,5.2 2,5.5 L2,8.5 C2,8.8 2.5,9 3.25,9 L20.75,9 C21.5,9 22,8.8 22,8.5 L22,5.5 Z M21,8 L3,8 L3,6 L21,6 L21,8 Z\" fill-rule=\"nonzero\"></path>\n        <path class=\"gjs-block-svg-path\" d=\"M22,10.5 C22,10.2 21.5,10 20.75,10 L3.25,10 C2.5,10 2,10.2 2,10.5 L2,13.5 C2,13.8 2.5,14 3.25,14 L20.75,14 C21.5,14 22,13.8 22,13.5 L22,10.5 Z M21,13 L3,13 L3,11 L21,11 L21,13 Z\" fill-rule=\"nonzero\"></path>\n        <rect class=\"gjs-block-svg-path\" x=\"2\" y=\"15\" width=\"10\" height=\"3\" rx=\"0.5\"></rect>\n      </svg>\n      <div class=\"gjs-block-label\">Contact</div></div>",
+            category: 'Templates',
+            content: `
+            <style>
+                #title-Tag-Line {
+                font-size: 20px;
+                }
+
+                /* form animation starts */
+                .form {
+                background: #fff;
+                box-shadow: 0 30px 60px 0 rgba(90, 116, 148, 0.4);
+                border-radius: 5px;
+                max-width: 480px;
+                margin-left: auto;
+                margin-right: auto;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                left: 0;
+                right: 0;
+                position: absolute;
+                border-top: 5px solid #0e3721;
+                /*   z-index: 1; */
+                animation: bounce 1.5s infinite;
+                }
+                ::-webkit-input-placeholder {
+                font-size: 1.3em;
+                }
+
+                .title{
+                display: block;
+                font-family: sans-serif;
+                margin: 10px auto 5px;
+                width: 300px;
+                }
+                .termsConditions{
+                margin: 0 auto 5px 80px;
+                }
+
+                .pageTitle{
+                font-size: 2em;
+                font-weight: bold;
+                }
+                .secondaryTitle{
+                color: grey;
+                }
+
+                .name {
+                background-color: #ebebeb;
+                color: white;
+                }
+                .name:hover {
+                border-bottom: 5px solid #0e3721;
+                height: 30px;
+                width: 380px;
+                transition: ease 0.5s;
+                }
+
+                .email {
+                background-color: #ebebeb;
+                height: 2em;
+                }
+
+                .email:hover {
+                border-bottom: 5px solid #0e3721;
+                height: 30px;
+                width: 380px;
+                transition: ease 0.5s;
+                }
+
+                .message {
+                background-color: #ebebeb;
+                overflow: hidden;
+                height: 10rem;
+                }
+
+                .message:hover {
+                border-bottom: 5px solid #0e3721;
+                height: 12em;
+                width: 380px;
+                transition: ease 0.5s;
+                }
+
+                .formEntry {
+                display: block;
+                margin: 30px auto;
+                min-width: 300px;
+                padding: 10px;
+                border-radius: 2px;
+                border: none;
+                transition: all 0.5s ease 0s;
+                }
+
+                .submit {
+                width: 200px;
+                color: white;
+                background-color: #0e3721;
+                font-size: 20px;
+                }
+
+                .submit:hover {
+                box-shadow: 15px 15px 15px 5px rgba(78, 72, 77, 0.219);
+                transform: translateY(-3px);
+                width: 300px;
+                border-top: 5px solid #0e3750;
+                border-radius: 0%;
+                }
+
+                @keyframes bounce {
+                0% {
+                    tranform: translate(0, 4px);
+                }
+                50% {
+                    transform: translate(0, 8px);
+                }
+                } 
+            </style>
+            <div class="wrapper">
+                <form class="form">
+                <div class="pageTitle title">Sign Up </div>
+                <div class="secondaryTitle title">Please fill this form to sign up.</div>
+                <input type="text" class="name formEntry" placeholder="Name" />
+                <input type="text" class="email formEntry" placeholder="Email"/>
+                <textarea class="message formEntry" placeholder="Message"></textarea>
+                <input type="checkbox" class="termsConditions" value="Term">
+                <label style="color: grey" for="terms"> I Accept the <span style="color: #0e3721">Terms of Use</span> & <span style="color: #0e3721">Privacy Policy</span>.</label><br>
+                <button class="submit formEntry" onclick="thanks()">Submit</button>
+                </form>
+            </div>
+            `,
+            active: true
         });
         editor.Panels.addPanel({
             id: 'panel-top',
