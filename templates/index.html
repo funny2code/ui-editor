@@ -4,11 +4,14 @@
 <head>
     <meta charset="utf-8">
     <title>Grapesjs Project Manager</title>
-    <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="static/dist_/grapesjs-project-manager.min.css">
-    <script src="https://unpkg.com/grapesjs"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/grapes.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/grapesjs-project-manager.min.css')}}">
+    <!-- <script src="https://unpkg.com/grapesjs"></script>
     <script src="https://unpkg.com/grapesjs-blocks-basic"></script>
-    <script src="https://unpkg.com/grapesjs-preset-webpage"></script>
+    <script src="https://unpkg.com/grapesjs-preset-webpage"></script> -->
+    <script src="{{ url_for('static', filename='js/grapes.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/grapesjs-block-basic.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/grapesjs-preset-webpage.js')}}"></script>
     <style>
         body,
         html {
