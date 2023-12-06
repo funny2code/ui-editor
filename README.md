@@ -10,7 +10,7 @@
 
 ## :dart: How to configure Python and run the Flask app ##
 
-OS: Linux/MacOS
+OS: Linux
 
 1. Open your shell
 2. Checking python3 \
